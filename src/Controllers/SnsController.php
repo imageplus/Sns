@@ -4,6 +4,7 @@
 namespace Imageplus\Sns\Controllers;
 
 
+use Illuminate\Support\Facades\Auth;
 use Imageplus\Sns\Facades\Sns;
 use Imageplus\Sns\Requests\SnsAddDeviceRequest;
 use Illuminate\Http\Request;
@@ -21,10 +22,18 @@ class SnsController
      * @param SnsAddDeviceRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function addDevice($model_id, SnsAddDeviceRequest $request){
+    public function addDevice(SnsAddDeviceRequest $request, $model_id = null){
 
-        //this needs to have a model to attach too so find it or throw a 404
-        $model = config('sns.default_model')::findOrFail($model_id);
+        //if there is no model id and it is set to use auth the model is the authenticated used
+        if($model_id == null && config('sns.use_auth')){
+            $model = Auth::user();
+        } else {
+            //this is not validated if the model_id is not null as the route will throw a 404
+            //if the parameter is not present and use auth is false
+
+            //this needs to have a model to attach too so find it or throw a 404
+            $model = config('sns.default_model')::findOrFail($model_id);
+        }
 
         //Register the device in sns
         $subscription_model = Sns::registerDevice(

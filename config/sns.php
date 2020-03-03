@@ -112,5 +112,32 @@ return [
      * Default Model is used only if you use the controller provided by the package
      * It will use this model to attach subscriptions to
      */
-    'default_model' => \App\User::class
+    'default_model' => \App\User::class,
+
+    /**
+     * Route uris used by the package
+     * Feel free to change these
+     */
+    'routes' => [
+        /**
+         * route used to register a device
+         */
+        'register' => 'registerDevice',
+
+        /**
+         * Route used to remove a device
+         */
+        'unregister' => 'unregisterDevice',
+
+        /**
+         * Route used to unregister a topic
+         */
+        'remove_topic' => 'unregisterTopic'
+    ],
+
+    /**
+     * This is used in the register method as the model to use if the model_id is not passed in
+     * the parameter on the route will no longer be optional if this is set to false
+     */
+    'use_auth' => true
 ];

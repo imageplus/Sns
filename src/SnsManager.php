@@ -92,13 +92,14 @@ class SnsManager
         //create a group of routes for this with all the default values
         Route::group($attributes, function(){
             //route to add a new subscription
-            Route::post('/add_device/{model_id}', 'Imageplus\Sns\Controllers\SnsController@addDevice')->name('add_device');
+            //the model_id parameter is only optional when the use_auth config is true
+            Route::post(config('sns.routes.register') . '/{model_id' . config('sns.use_auth') ? '?' : '' .'}', 'Imageplus\Sns\Controllers\SnsController@addDevice')->name('register_device');
 
             //route to remove a subscription
-            Route::delete('/remove_device/{value}', 'Imageplus\Sns\Controllers\SnsController@removeDevice')->name('remove_device');
+            Route::delete(config('sns.routes.unregister') . '/{value}', 'Imageplus\Sns\Controllers\SnsController@removeDevice')->name('unregister_device');
 
             //route to remove a topic
-            Route::delete('/remove_topic/{value}', 'Imageplus\Sns\Controllers\SnsController@removeTopic')->name('remove_topic');
+            Route::delete(config('sns.routes.remove_topic') . '/{value}', 'Imageplus\Sns\Controllers\SnsController@removeTopic')->name('unregister_topic');
         });
     }
 
