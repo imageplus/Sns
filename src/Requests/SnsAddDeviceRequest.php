@@ -1,6 +1,6 @@
 <?php
 
-namespace Imageplus\Sns\src\Requests;
+namespace Imageplus\Sns\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

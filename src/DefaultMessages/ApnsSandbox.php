@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Imageplus\Sns\src\DefaultMessages;
+namespace Imageplus\Sns\DefaultMessages;
 
 /**
  * This uses the same format as Apns but with a different name

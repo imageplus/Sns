@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Imageplus\Sns\src\DefaultMessages;
+namespace Imageplus\Sns\DefaultMessages;
 
 /**
  * Default Apns Message

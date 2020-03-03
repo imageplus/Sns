@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Imageplus\Sns\src\Contracts;
+namespace Imageplus\Sns\Contracts;
 
 /**
  * Used for generating the body of default messages

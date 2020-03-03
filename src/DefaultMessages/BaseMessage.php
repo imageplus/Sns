@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Imageplus\Sns\src\DefaultMessages;
+namespace Imageplus\Sns\DefaultMessages;
 
 
-use Imageplus\Sns\src\Contracts\SnsDefaultApnMessageContract;
+use Imageplus\Sns\Contracts\SnsDefaultApnMessageContract;
 
 /**
  * Base class for default messages

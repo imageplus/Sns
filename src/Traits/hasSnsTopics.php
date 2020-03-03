@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Imageplus\Sns\src\Traits;
+namespace Imageplus\Sns\Traits;
 
 
 use Illuminate\Database\Eloquent\Relations\MorphOne;

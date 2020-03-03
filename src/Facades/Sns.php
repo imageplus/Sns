@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Imageplus\Sns\src\Facades;
+namespace Imageplus\Sns\Facades;
 
 
 use Illuminate\Support\Facades\Facade;

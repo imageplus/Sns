@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Imageplus\Sns\src\InteractionHandlers;
+namespace Imageplus\Sns\InteractionHandlers;
 
-use Imageplus\Sns\src\Contracts\SnsEndpointContract;
-use Imageplus\Sns\src\Contracts\SnsTopicContract;
-use Imageplus\Sns\src\Contracts\SnsTopicSubscriptionContract;
-use Imageplus\Sns\src\Facades\Sns;
-use Imageplus\Sns\src\Traits\instancesSnsModels;
+use Imageplus\Sns\Contracts\SnsEndpointContract;
+use Imageplus\Sns\Contracts\SnsTopicContract;
+use Imageplus\Sns\Contracts\SnsTopicSubscriptionContract;
+use Imageplus\Sns\Facades\Sns;
+use Imageplus\Sns\Traits\instancesSnsModels;
 use Aws\Result;
 
 /**

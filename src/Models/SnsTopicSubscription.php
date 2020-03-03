@@ -1,8 +1,8 @@
 <?php
 
-namespace Imageplus\Sns\src\Models;
+namespace Imageplus\Sns\Models;
 
-use Imageplus\Sns\src\Contracts\SnsTopicSubscriptionContract;
+use Imageplus\Sns\Contracts\SnsTopicSubscriptionContract;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

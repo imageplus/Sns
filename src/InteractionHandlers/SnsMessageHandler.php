@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Imageplus\Sns\src\InteractionHandlers;
+namespace Imageplus\Sns\InteractionHandlers;
 
 
-use Imageplus\Sns\src\Facades\Sns;
+use Imageplus\Sns\Facades\Sns;
 
 /**
  * Class SnsMessageHandler

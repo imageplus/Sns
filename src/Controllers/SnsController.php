@@ -1,16 +1,16 @@
 <?php
 
 
-namespace Imageplus\Sns\src\Controllers;
+namespace Imageplus\Sns\Controllers;
 
 
-use Imageplus\Sns\src\Facades\Sns;
-use Imageplus\Sns\src\Requests\SnsAddDeviceRequest;
+use Imageplus\Sns\Facades\Sns;
+use Imageplus\Sns\Requests\SnsAddDeviceRequest;
 use Illuminate\Http\Request;
 
 /**
  * Class SnsController
- * @package Imageplus\Sns\src\Controllers
+ * @package Imageplus\Sns\Controllers
  * @author Harry Hindson
  */
 class SnsController

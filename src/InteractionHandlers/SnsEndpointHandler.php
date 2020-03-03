@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Imageplus\Sns\src\InteractionHandlers;
+namespace Imageplus\Sns\InteractionHandlers;
 
 
-use Imageplus\Sns\src\Contracts\SnsEndpointContract;
-use Imageplus\Sns\src\Facades\Sns;
-use Imageplus\Sns\src\Traits\instancesSnsModels;
-use Imageplus\Sns\src\Traits\validatesObjects;
+use Imageplus\Sns\Contracts\SnsEndpointContract;
+use Imageplus\Sns\Facades\Sns;
+use Imageplus\Sns\Traits\instancesSnsModels;
+use Imageplus\Sns\Traits\validatesObjects;
 use Aws\Result;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;

@@ -1,15 +1,15 @@
 <?php
 
 
-namespace Imageplus\Sns\src;
+namespace Imageplus\Sns;
 
 
-use Imageplus\Sns\src\Contracts\SnsTopicContract;
-use Imageplus\Sns\src\Contracts\SnsTopicSubscriptionContract;
-use Imageplus\Sns\src\InteractionHandlers\SnsEndpointHandler;
-use Imageplus\Sns\src\InteractionHandlers\SnsMessageHandler;
-use Imageplus\Sns\src\InteractionHandlers\SnsSubscriptionHandler;
-use Imageplus\Sns\src\InteractionHandlers\SnsTopicHandler;
+use Imageplus\Sns\Contracts\SnsTopicContract;
+use Imageplus\Sns\Contracts\SnsTopicSubscriptionContract;
+use Imageplus\Sns\InteractionHandlers\SnsEndpointHandler;
+use Imageplus\Sns\InteractionHandlers\SnsMessageHandler;
+use Imageplus\Sns\InteractionHandlers\SnsSubscriptionHandler;
+use Imageplus\Sns\InteractionHandlers\SnsTopicHandler;
 use Aws\Sns\SnsClient;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Route;

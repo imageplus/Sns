@@ -1,6 +1,6 @@
 <?php
 
-namespace Imageplus\Sns\src;
+namespace Imageplus\Sns;
 
 use Illuminate\Support\ServiceProvider;
 
