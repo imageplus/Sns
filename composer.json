@@ -1,5 +1,5 @@
 {
-    "name": "Imageplus/Sns",
+    "name": "imageplus/sns",
     "description": "Handles basic interactions with sns",
     "minimum-stability": "stable",
     "license": "MIT",
@@ -11,7 +11,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "ImagePlus\\Sns\\": "src"
+            "Imageplus\\Sns\\": "src"
         }
     },
     "require": {
@@ -20,10 +20,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "ImagePlus\\Sns\\SnsServiceProvider"
+                "Imageplus\\Sns\\SnsServiceProvider"
             ],
             "aliases": {
-                "Sns": "ImagePlus\\Sns\\Facades\\Sns"
+                "Sns": "Imageplus\\Sns\\Facades\\Sns"
             }
         }
     }
