@@ -11,7 +11,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Imageplus\\Sns\\": "src"
+            "Imageplus\\Sns\\": "src/"
         }
     },
     "require": {
