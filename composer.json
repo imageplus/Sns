@@ -1,0 +1,30 @@
+{
+    "name": "Imageplus/Sns",
+    "description": "Handles basic interactions with sns",
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "harry",
+            "email": "harryhindson@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "ImagePlus\\Sns\\": "src"
+        }
+    },
+    "require": {
+        "../aws/aws-sdk-php": "^3.133"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ImagePlus\\Sns\\SnsServiceProvider"
+            ],
+            "aliases": {
+                "Sns": "ImagePlus\\Sns\\Facades\\Sns"
+            }
+        }
+    }
+}
