@@ -16,8 +16,8 @@ class CreateSnsEndpointsTable extends Migration
         Schema::create(config('sns.tables.endpoint'), function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->string('platform')->unique();
-            $table->string('device_token');
+            $table->string('platform');
+            $table->string('device_token')->unique();
             $table->text('user_agent')->nullable();
 
             $table->string('endpoint_arn')->nullable();

@@ -19,10 +19,10 @@ class CreateSnsTopicSubscriptionsTable extends Migration
             $table->bigInteger('sns_topic_id')->unsigned();
             $table->foreign('sns_topic_id')->references('id')->on('sns_topics');
 
-            $table->bigInteger('sns_endpoint_id')->unsigned();
+            $table->bigInteger('sns_endpoint_id')->unsigned()->unique();
             $table->foreign('sns_endpoint_id')->references('id')->on('sns_endpoints');
 
-            $table->string('subscription_arn')->nullable();
+            $table->string('subscription_arn');
 
             $table->timestamps();
             $table->softDeletes();
