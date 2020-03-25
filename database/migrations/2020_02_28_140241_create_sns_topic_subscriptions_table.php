@@ -13,7 +13,7 @@ class CreateSnsTopicSubscriptionsTable extends Migration
      */
     public function up()
     {
-        Schema::create(config('sns.tables.topic'), function (Blueprint $table) {
+        Schema::create(config('sns.tables.subscription'), function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->bigInteger('sns_topic_id')->unsigned();
