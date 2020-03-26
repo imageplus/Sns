@@ -93,7 +93,7 @@ class SnsManager
         Route::group($attributes, function(){
             //route to add a new subscription
             //the model_id parameter is only optional when the use_auth config is true
-            Route::post(config('sns.routes.register') . '/{model_id' . config('sns.use_auth') ? '?' : '' .'}', 'Imageplus\Sns\Controllers\SnsController@addDevice')->name('register_device');
+            Route::post(config('sns.routes.register') . '/{model_id' . (config('sns.use_auth') ? '?' : '') .'}', 'Imageplus\Sns\Controllers\SnsController@addDevice')->name('register_device');
 
             //route to remove a subscription
             Route::delete(config('sns.routes.unregister') . '/{value}', 'Imageplus\Sns\Controllers\SnsController@removeDevice')->name('unregister_device');
