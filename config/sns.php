@@ -95,6 +95,10 @@ return [
      */
     'default_messages' => [
         /**
+         * This is the default message, SNS requires it...
+         */
+        \Imageplus\Sns\DefaultMessages\DefaultMessage::class,
+        /**
          * This is the default message for IOS
          */
         \Imageplus\Sns\DefaultMessages\Apns::class,
