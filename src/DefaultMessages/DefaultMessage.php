@@ -1,24 +1,24 @@
 <?php
 
 
-namespace Imageplus\Sns\src\DefaultMessages;
+namespace Imageplus\Sns\DefaultMessages;
 
 /**
- * Default Apns Message
- * Class Apns
+ * Default Message
+ * Class DefaultMessage
  * @package Imageplus\Sns\DefaultMessages
  * @author Harry Hindson
  */
 class DefaultMessage extends BaseMessage
 {
     /**
-     * Set the name to APNS
+     * Set the name to default
      * @var string
      */
     public $name = 'default';
 
     /**
-     * Builds the default apns message contents
+     * Builds the default message contents
      * @param string $title
      * @param string $message
      * @param string $type
@@ -28,10 +28,14 @@ class DefaultMessage extends BaseMessage
     public function getContents(string $title, string $message, string $type, $data): array
     {
         return [
-            'data' => [
-                'message' => $message,
-                'title' => $title,
+            //aps is the default body for apples sns messages
+            'aps' => [
+                'sound' => 'default',
                 'type' => $type,
+                'alert' => [
+                    'title' => $title,
+                    'body' => $message
+                ],
                 'data' => $data,
             ]
         ];
