@@ -36,6 +36,6 @@ class CreateSnsTopicSubscriptionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(config('sns.tables.topic'));
+        Schema::dropIfExists(config('sns.tables.subscription'));
     }
 }
