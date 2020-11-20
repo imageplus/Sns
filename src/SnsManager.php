@@ -171,7 +171,7 @@ class SnsManager
 
         $topic = $this->handlers['topic']->getTopic($model);
 
-        if(config('sns.topic_tags') !== false){
+        if(config('sns.topic_tags', false) !== false){
             $this->handlers['tagging']->createTags($topic);
         }
 
