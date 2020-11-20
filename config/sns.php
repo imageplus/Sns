@@ -143,5 +143,19 @@ return [
      * This is used in the register method as the model to use if the model_id is not passed in
      * the parameter on the route will no longer be optional if this is set to false
      */
-    'use_auth' => true
+    'use_auth' => true,
+
+    /**
+     * When not null this array will be used as attached tags to every topic
+     * false to not add tags
+     * use below format to create tags
+     * (https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#tagresource)
+     * [
+     *     [
+     *         'Key' => '',
+     *         'Value' => ''
+     *     ]
+     * ]
+     */
+    'topic_tags' => false
 ];
