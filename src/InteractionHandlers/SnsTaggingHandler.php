@@ -19,7 +19,7 @@ class SnsTaggingHandler
      * Attaches a custom tag to a topic
      * @param SnsTopicContract $topic
      */
-    protected function createTags(SnsTopicContract $topic)
+    public function createTags(SnsTopicContract $topic)
     {
         return Sns::getClient()->tagResource([
             'ResourceArn' => $topic->topic_arn,
