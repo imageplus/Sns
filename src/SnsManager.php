@@ -159,8 +159,8 @@ class SnsManager
         //it is for the current user, and if not we remove the subscription
         //and continue as before
         if ($endpoint->subscription) {
-            $subscriptionModel = $endpoint->subscription->topic->model;
-            if ($subscriptionModel->getKey() != $model->getKey()) {
+            $subscriptionModel = $endpoint->subscription;
+            if ($subscriptionModel->topic->model->getKey() != $model->getKey()) {
                 $this->handlers['subscription']->removeSubscription($subscriptionModel);
 
                 //The endpoint can remain intact as this will be reused for the device and just map to a new user via subscription
