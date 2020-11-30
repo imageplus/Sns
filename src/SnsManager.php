@@ -13,6 +13,7 @@ use Imageplus\Sns\InteractionHandlers\SnsTopicHandler;
 use Aws\Sns\SnsClient;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Route;
+use Imageplus\Sns\InteractionHandlers\SnsTaggingHandler;
 
 /**
  * Class SnsManager
@@ -34,6 +35,7 @@ class SnsManager
      */
     protected $handlers = [
         'topic' => SnsTopicHandler::class,
+        'tagging' => SnsTaggingHandler::class,
         'endpoint' => SnsEndpointHandler::class,
         'subscription' => SnsSubscriptionHandler::class,
         'message' => SnsMessageHandler::class
@@ -167,12 +169,18 @@ class SnsManager
             }
         }
 
+        $topic = $this->handlers['topic']->getTopic($model);
+
+        if(config('sns.topic_tags', false) !== false){
+            $this->handlers['tagging']->createTags($topic);
+        }
+
         //will create a subscription or return it
         //(should be 1 per device as it maps an endpoint to a topic)
         return $this->handlers['subscription']
             ->getSubscription(
                 //get or create the topic (should be 1 per user)
-                $this->handlers['topic']->getTopic($model),
+                $topic,
                 $endpoint
             );
     }
