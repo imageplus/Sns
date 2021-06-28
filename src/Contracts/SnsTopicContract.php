@@ -15,12 +15,20 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 interface SnsTopicContract
 {
     /**
+     * Finds an sns topic by its name
+     * @param $query
+     * @param $name
+     * @return Builder
+     */
+    public function scopeFindByName($query, $name): Builder;
+
+    /**
      * Finds an sns topic from the arn
      * @param $query
      * @param $topic
      * @return Builder
      */
-    public function scopeFindTopic($query, $topic): Builder;
+    public function scopeFindByTopic($query, $topic): Builder;
 
     /**
      * Finds all subscriptions attached to the topic

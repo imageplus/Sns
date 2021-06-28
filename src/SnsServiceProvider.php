@@ -3,6 +3,7 @@
 namespace Imageplus\Sns;
 
 use Illuminate\Support\ServiceProvider;
+use Imageplus\Sns\Commands\CreateSnsTopics;
 
 class SnsServiceProvider extends ServiceProvider
 {
@@ -30,6 +31,9 @@ class SnsServiceProvider extends ServiceProvider
         //copy the default config into the config folder
         $this->copyConfig();
 
+        //handle command initialisation
+        $this->addCommands();
+
         //things that need copying
         //  -> Config -> done
         //  -> Models -> done
@@ -52,5 +56,11 @@ class SnsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../config/sns.php' => config_path('sns.php')
         ], 'config');
+    }
+
+    protected function addCommands(){
+        $this->commands([
+            CreateSnsTopics::class
+        ]);
     }
 }

@@ -4,11 +4,16 @@
 namespace Imageplus\Sns\Traits;
 
 
+use Illuminate\Contracts\Support\MessageBag;
+use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 use Illuminate\Support\Facades\Validator;
 
 trait validatesObjects
 {
-    private $errors = [];
+    /**
+     * @var MessageBag|null
+     */
+    private $errors = null;
 
     /**
      * @param $rules
@@ -21,22 +26,32 @@ trait validatesObjects
 
         if($validator->fails()){
             $this->errors = $validator->errors();
+
             return false;
         }
 
         return true;
     }
 
+    /**
+     * Gets error messages from the class
+     * @return MessageBag|null
+     */
     public function getErrors(){
         return $this->errors;
     }
 
-    protected function validateArray($rules, $values){
-        $validator = Validator::make(
+    /**
+     * Creates the validator required
+     * @param $rules
+     * @param $values
+     * @return ValidatorContract
+     */
+    protected function validateArray($rules, $values): ValidatorContract
+    {
+        return Validator::make(
             $values,
             $rules
         );
-
-        return $validator;
     }
 }

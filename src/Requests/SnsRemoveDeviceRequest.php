@@ -5,7 +5,7 @@ namespace Imageplus\Sns\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Imageplus\Sns\Rules\IsValidPlatform;
 
-class SnsAddDeviceRequest extends FormRequest
+class SnsRemoveDeviceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

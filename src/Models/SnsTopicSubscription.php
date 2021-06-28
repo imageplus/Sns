@@ -2,6 +2,7 @@
 
 namespace Imageplus\Sns\Models;
 
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Imageplus\Sns\Contracts\SnsTopicSubscriptionContract;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +13,8 @@ class SnsTopicSubscription extends Model implements SnsTopicSubscriptionContract
 {
     protected $fillable = [
         'subscription_arn',
-        'sns_endpoint_id'
+        'sns_endpoint_id',
+        'sns_topic_id'
     ];
 
     public function __construct(array $attributes = [])
@@ -33,6 +35,13 @@ class SnsTopicSubscription extends Model implements SnsTopicSubscriptionContract
      */
     public function topic(): BelongsTo{
         return $this->belongsTo(config('sns.models.topic'), 'sns_topic_id', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
+    public function model(): MorphTo{
+        return $this->morphTo();
     }
 
     /**

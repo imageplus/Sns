@@ -126,17 +126,12 @@ return [
         /**
          * route used to register a device
          */
-        'register' => 'registerDevice',
+        'register' => 'register-device',
 
         /**
          * Route used to remove a device
          */
-        'unregister' => 'unregisterDevice',
-
-        /**
-         * Route used to unregister a topic
-         */
-        'remove_topic' => 'unregisterTopic'
+        'unregister' => 'unregister-device'
     ],
 
     /**
@@ -146,7 +141,7 @@ return [
     'use_auth' => true,
 
     /**
-     * When not null this array will be used as attached tags to every topic
+     * When not false this array will be used as attached tags to every topic
      * false to not add tags
      * use below format to create tags
      * (https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sns-2010-03-31.html#tagresource)

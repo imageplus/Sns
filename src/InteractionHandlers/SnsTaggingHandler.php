@@ -3,6 +3,7 @@
 
 namespace Imageplus\Sns\InteractionHandlers;
 
+use Aws\Result;
 use Imageplus\Sns\Contracts\SnsTopicContract;
 use Imageplus\Sns\Facades\Sns;
 
@@ -14,10 +15,10 @@ use Imageplus\Sns\Facades\Sns;
  */
 class SnsTaggingHandler
 {
-
     /**
      * Attaches a custom tag to a topic
-     * @param SnsTopicContract $topic
+     * @param   SnsTopicContract $topic
+     * @returns Result
      */
     public function createTags(SnsTopicContract $topic)
     {

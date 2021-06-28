@@ -15,28 +15,28 @@ class Apns extends BaseMessage
      * Set the name to APNS
      * @var string
      */
-    public $name = 'APNS';
+    public static $name = 'APNS';
 
     /**
      * Builds the default apns message contents
-     * @param string $title
-     * @param string $message
-     * @param string $type
-     * @param $data
-     * @return array|array[]
+     * @param  string $title
+     * @param  string $message
+     * @param  string $type
+     * @param  array  $data
+     * @return array
      */
-    public function getContents(string $title, string $message, string $type, $data): array
+    public static function getContents(string $title, string $message, string $type, array $data = []): array
     {
         return [
             //aps is the default body for apples sns messages
             'aps' => [
-                'sound' => 'default',
-                'type' => $type,
-                'alert' => [
+                'sound'     => 'default',
+                'type'      => $type,
+                'alert'     => [
                     'title' => $title,
-                    'body' => $message
+                    'body'  => $message
                 ],
-                'data' => $data,
+                'data'      => $data,
             ]
         ];
     }

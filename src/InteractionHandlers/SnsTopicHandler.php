@@ -4,63 +4,68 @@
 namespace Imageplus\Sns\InteractionHandlers;
 
 
+use Illuminate\Contracts\Support\MessageBag;
 use Imageplus\Sns\Contracts\SnsTopicContract;
 use Imageplus\Sns\Facades\Sns;
 use Imageplus\Sns\Traits\instancesSnsModels;
-use Illuminate\Database\Eloquent\Model;
+use Imageplus\Sns\Traits\validatesObjects;
 
 /**
- * 1 Topic per base model
  * Class SnsTopicHandler
  * @package Imageplus\Sns\InteractionHandlers
  * @author Harry Hindson
  */
 class SnsTopicHandler
 {
-    use instancesSnsModels;
+    use instancesSnsModels, validatesObjects;
 
     /**
      * Gets a topic by returning or creating it
-     * @param Model $model
-     * @return SnsTopicContract|void
+     * @return SnsTopicContract|MessageBag
      */
-    public function getTopic(Model $model){
-        //A topic can only be added if the sns_topic method exists
-        if(method_exists($model, 'sns_topic')){
-            //if the model has a topic return it
-            if($model->sns_topic){
-                return $model->sns_topic;
-            }
+    public function getTopic($name){
+        //attempt to find the topic
+        $topic = $this->model::findByName($name)->first();
 
-            //otherwise create the topic
-            return $this->createTopic($model);
-        }
-
-        //TODO: ADD EXCEPTION FOR INVALID MODEL
+        //if the topic exists return it otherwise create one
+        return $topic ?? $this->createTopic($name);
     }
 
     /**
      * creates the topic
-     * @param Model $model
-     * @return SnsTopicContract|void
+     * @param  String $name
+     * @return SnsTopicContract|bool
      */
-    protected function createTopic(Model $model){
-        //create the topic in sns with a useful name
-        $topic = Sns::getClient()->CreateTopic([
-            'Name' => config('sns.topic_prefix') . '--' . class_basename($model) . '-' . $model->id
+    protected function createTopic(string $name){
+        //we need to validate the name when creating a new topic
+        $isValid = $this->validate([
+            'name' => 'required|unique:' . config('sns.tables.topic') . ',name'
+        ], [
+            'name' => $name
         ]);
 
+        if(!$isValid){
+            return false;
+        }
+
+        //create the topic in sns with a useful name
+        $topic = Sns::getClient()->CreateTopic([
+            'Name' => config('sns.topic_prefix') . '--' . $name
+        ]);
+
+        //NOTES: SNS throws its own exception
         //TODO: ADD EXCEPTION FOR FAILURE
 
         //create the topic in the database
-        return $model->sns_topic()->create([
+        return $this->model::create([
+            'name'      => $name,
             'topic_arn' => $topic->get('TopicArn')
         ]);
     }
 
     /**
      * Deletes an sns topic
-     * @param SnsTopicContract $topic
+     * @param  SnsTopicContract $topic
      * @return bool
      */
     public function removeTopic(SnsTopicContract $topic){
@@ -69,6 +74,7 @@ class SnsTopicHandler
             'TopicArn' => $topic->topic_arn
         ]);
 
+        //NOTES: SNS throws its own exception
         //TODO: ADD EXCEPTION FOR FAILURE
 
         //remove the topic from the database

@@ -2,6 +2,7 @@
 
 namespace Imageplus\Sns\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Imageplus\Sns\Contracts\SnsEndpointContract;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -27,7 +28,7 @@ class SnsEndpoint extends Model implements SnsEndpointContract
                     ->where('platform', $platform);
     }
 
-    public function subscription(): BelongsTo{
-        return $this->belongsTo(config('sns.models.subscription'), 'id', 'sns_endpoint_id');
+    public function subscriptions(): HasMany{
+        return $this->hasMany(config('sns.models.subscription'), 'sns_endpoint_id', 'id');
     }
 }

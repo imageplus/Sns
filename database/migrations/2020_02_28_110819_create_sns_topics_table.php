@@ -16,8 +16,7 @@ class CreateSnsTopicsTable extends Migration
         Schema::create(config('sns.tables.topic'), function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->string('model_type');
-            $table->integer('model_id')->unsigned();
+            $table->string('name')->unique();
 
             $table->string('topic_arn');
 

@@ -16,10 +16,13 @@ class CreateSnsTopicSubscriptionsTable extends Migration
         Schema::create(config('sns.tables.subscription'), function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            $table->string('model_type');
+            $table->integer('model_id')->unsigned();
+
             $table->bigInteger('sns_topic_id')->unsigned();
             $table->foreign('sns_topic_id')->references('id')->on('sns_topics');
 
-            $table->bigInteger('sns_endpoint_id')->unsigned()->unique();
+            $table->bigInteger('sns_endpoint_id')->unsigned();
             $table->foreign('sns_endpoint_id')->references('id')->on('sns_endpoints');
 
             $table->string('subscription_arn');

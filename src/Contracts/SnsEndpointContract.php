@@ -6,6 +6,7 @@ namespace Imageplus\Sns\Contracts;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Interface SnsEndpointContract
@@ -26,7 +27,7 @@ interface SnsEndpointContract
     /**
      * Finds the endpoints subscription
      * this can be null
-     * @return BelongsTo
+     * @return HasMany
      */
-    public function subscription(): BelongsTo;
+    public function subscriptions(): HasMany;
 }

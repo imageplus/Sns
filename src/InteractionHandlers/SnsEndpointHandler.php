@@ -5,6 +5,8 @@ namespace Imageplus\Sns\InteractionHandlers;
 
 
 use Imageplus\Sns\Contracts\SnsEndpointContract;
+use Imageplus\Sns\Exceptions\DevicePlatformDoesNotExistException;
+use Imageplus\Sns\Exceptions\PlatformArnNotValidException;
 use Imageplus\Sns\Facades\Sns;
 use Imageplus\Sns\Traits\instancesSnsModels;
 use Imageplus\Sns\Traits\validatesObjects;
@@ -22,18 +24,17 @@ class SnsEndpointHandler
     use instancesSnsModels, validatesObjects;
 
     /**
-     * Gets an endpoint bu creating or returning it
-     * @param $platform
-     * @param $device_token
+     * Gets an endpoint by creating or returning it
+     * @param  string $platform
+     * @param  string $device_token
      * @return SnsEndpointContract|bool
      */
-    public function getEndpoint($platform, $device_token){
+    public function getEndpoint(string $platform, string $device_token){
         //try to get the endpoint for the device
         $deviceEndpoint = $this->model::forDevice($device_token, $platform);
 
         //if the endpoint exists return it otherwise create it
-        return
-            $deviceEndpoint->first() ?? $this->createEndpoint($platform, $device_token);
+        return $deviceEndpoint->first() ?? $this->createEndpoint($platform, $device_token);
     }
 
     /**
@@ -46,6 +47,7 @@ class SnsEndpointHandler
 
         $credentials = $this->getCredentialsForPlatform($device_platform);
 
+        //if the credentials are invalid don't attempt to create the platform
         if(!$credentials){
             return false;
         }
@@ -79,28 +81,40 @@ class SnsEndpointHandler
             'Token' => $device_token
         ]);
 
+        //NOTES: SNS THROWS ITS OWN EXCEPTION SO MAYBE JUST TRY CATCH A COPY OF IT AND PASS DATA WITH SENTRY
         //TODO: ADD EXCEPTION FOR FAIlURE
     }
 
     /**
      * Gets the arn for the given platform
-     * @param $device_platform
-     * @return String|void
+     * @param  string $device_platform
+     * @return string|bool
+     * @throws DevicePlatformDoesNotExistException|PlatformArnNotValidException
      */
-    protected function getCredentialsForPlatform($device_platform){
+    protected function getCredentialsForPlatform(String $device_platform){
         //if the platform exists return its arn from the config
         $platform_arn = config(
             'sns.platform_arns.' .
             Str::lower($device_platform)
         );
 
-        return $this->validate(
+        if($platform_arn === null){
+            throw new DevicePlatformDoesNotExistException("Device platform does not exist or isn't configured");
+        }
+
+        $platform = $this->validate(
             [ 'platform_arn' => 'required|array|size:6' ],
             [ 'platform_arn' => explode(':', $platform_arn) ]
         )
             ? $platform_arn
             : false;
-        //TODO: THROW ERROR IF PLATFORM IS INVALID
+
+        if(!$platform){
+            //TODO: Add sentry details for platform arn here
+            throw new PlatformArnNotValidException("Platform Arn {$platform_arn} is not valid");
+        }
+
+        return $platform;
     }
 
     /**
@@ -114,6 +128,7 @@ class SnsEndpointHandler
             'EndpointArn' => $endpoint->endpoint_arn
         ]);
 
+        //NOTES: SNS HAS ITS OWN EXCEPTION
         //TODO: ADD EXCEPTION FOR FAILURE
 
         //remove the endpoint from the database

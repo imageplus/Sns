@@ -4,6 +4,9 @@
 namespace Imageplus\Sns\Controllers;
 
 
+use Illuminate\Support\Collection;
+use Imageplus\Sns\Requests\SnsRemoveDeviceRequest;
+use Imageplus\Sns\Resources\SnsTopicSubscriptionResource;
 use Illuminate\Support\Facades\Auth;
 use Imageplus\Sns\Facades\Sns;
 use Imageplus\Sns\Requests\SnsAddDeviceRequest;
@@ -22,7 +25,7 @@ class SnsController
      * @param SnsAddDeviceRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function addDevice(SnsAddDeviceRequest $request, $model_id = null){
+    public function registerDevice(SnsAddDeviceRequest $request, $model_id = null){
 
         //if there is no model id and it is set to use auth the model is the authenticated used
         if($model_id == null && config('sns.use_auth')){
@@ -36,7 +39,7 @@ class SnsController
         }
 
         //Register the device in sns
-        $subscription_model = Sns::registerDevice(
+        $subscriptions = Sns::registerDevice(
             $model,
             $request->get('device_token'),
             $request->get('platform'),
@@ -44,7 +47,7 @@ class SnsController
         );
 
         //if the model isn't set the subscription failed so throw the errors back
-        if(!$subscription_model){
+        if(!$subscriptions){
             return response()->json([
                 'message' => 'Device Registration Failed',
                 //contains the validator errors
@@ -54,7 +57,7 @@ class SnsController
 
         //the subscription was successful so return the arn
         return response()->json([
-            'SubscriptionArn' => $subscription_model->subscription_arn,
+            'subscriptions' => SnsTopicSubscriptionResource::collection($subscriptions),
             'message' => 'Device Added Successfully'
         ]);
     }
@@ -64,41 +67,20 @@ class SnsController
      * @param $value
      * @return \Illuminate\Http\JsonResponse
      */
-    public function removeDevice($value){
-        //this can be either the subscriptionArn of an id of the subscription model
-        //so try to find it from the model
-        $model = config('sns.models.subscription')::find($value);
+    public function unregisterDevice(SnsRemoveDeviceRequest $request){
+        $removedSubscription = Sns::unregisterDevice([
+            $request->get('device_token'),
+            $request->get('platform')
+        ]);
 
-        Sns::unregisterDevice(
-            //if the model exists use that otherwise it must be an arn
-            $model ? $model : $value
-        );
+        if(!$removedSubscription){
+            return response()->json([
+                'message' => 'Failed To Unregister Device',
+            ], 422);
+        }
 
         return response()->json([
             'message' => 'Device Removed Successfully'
-        ]);
-    }
-
-    /**
-     * Remove a topic from sns (remove all data for a model)
-     * @param $value
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function removeTopic($value, Request $request){
-        //if there is a model given assume that otherwise use the default
-        $model = $request->get('model', config('sns.default_model'));
-
-        //find the model
-        $model = $model::find($value);
-
-        Sns::unregisterTopic(
-            //if the model exists return its topic otherwise the value must be a topic
-            $model ? $model->sns_topic : $value
-        );
-
-        return response()->json([
-            'message' => 'Topic Removed Successfully'
         ]);
     }
 }

@@ -7,6 +7,7 @@ namespace Imageplus\Sns\Contracts;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
  * Interface SnsTopicSubscriptionContract
@@ -26,6 +27,12 @@ interface SnsTopicSubscriptionContract
      * @return BelongsTo
      */
     public function topic(): BelongsTo;
+
+    /**
+     * Gets the model attached to the subscription
+     * @return MorphTo
+     */
+    public function model(): MorphTo;
 
     /**
      * Query builder which finds the subscription for an endpoint

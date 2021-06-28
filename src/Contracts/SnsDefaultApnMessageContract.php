@@ -12,8 +12,8 @@ namespace Imageplus\Sns\Contracts;
 interface SnsDefaultApnMessageContract
 {
     //gets the name/key of the message
-    public function getName(): string;
+    public static function getName(): string;
 
     //gets the message contents
-    public function getContents(string $title, string $message, string $type, $extra): array;
+    public static function getContents(string $title, string $message, string $type, array $extra = []): array;
 }

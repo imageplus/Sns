@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class SnsTopic extends Model implements SnsTopicContract
 {
     protected $fillable = [
-        'topic_arn',
+        'name',
+        'topic_arn'
     ];
 
     public function __construct(array $attributes = [])
@@ -19,12 +20,12 @@ class SnsTopic extends Model implements SnsTopicContract
         $this->setTable(config('sns.tables.topic'));
     }
 
-    public function scopeFindTopic($query, $topic): Builder{
-        return $query->where('topic_arn', $topic);
+    public function scopeFindByName($query, $name): Builder {
+        return $query->where('name', $name);
     }
 
-    public function model(){
-        return $this->morphTo();
+    public function scopeFindByTopic($query, $topic): Builder {
+        return $query->where('topic_arn', $topic);
     }
 
     public function subscriptions(): HasMany{

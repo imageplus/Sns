@@ -12,5 +12,5 @@ namespace Imageplus\Sns\DefaultMessages;
  */
 class ApnsSandbox extends Apns
 {
-    public $name = 'APNS_SANDBOX';
+    public static $name = 'APNS_SANDBOX';
 }
