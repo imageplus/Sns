@@ -134,6 +134,11 @@ class SnsSubscriptionHandler
     }
 
     protected function attachAttributes(SnsTopicSubscriptionContract $subscription, Array $attributes){
+        //we don't need to assign attributes if none exist
+        if(count($attributes) == 0){
+            return;
+        }
+
         Sns::getClient()->setSubscriptionAttributes([
             'SubscriptionArn' => $subscription->subscription_arn,
             'AttributeName'   => 'FilterPolicy',
