@@ -119,7 +119,7 @@ class SnsMessageHandler
     public function setMessageContent(string $title, string $message): SnsMessageHandler
     {
         $this->title   = $title;
-        $this->message = $message;
+        $this->content = $message;
 
         return $this;
     }
