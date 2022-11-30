@@ -127,6 +127,8 @@ Sns::assignEndpointToTopics(function(Model $model, SnsEndpointContract $endpoint
 
 **Values**: These must be a valid `Filter Policy` (see [Amazon SNS](https://docs.aws.amazon.com/sns/latest/dg/example-filter-policies.html)) in Array format
 
+**DUE TO CURRENT LIMITATIONS OF AWS SUBSCRIPTION FILTER POLICIES ONLY USE EMPTY ARRAYS AS THE VALUES**
+
 ---
 
 ## Usage
