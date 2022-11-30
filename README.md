@@ -19,7 +19,7 @@ To publish the config file run
 ```
 php artisan vendor:publish --tag=config
 ```
-### #Publishing The Migrations
+#### Publishing The Migrations
 To publish the migrations run
 ```
 php artisan vendor:publish --tag=migrations
